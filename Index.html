@@ -1,0 +1,153 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Sensi Generator v4 (Auto Adaptive)</title>
+<style>
+body{font-family:Arial;background:#0f172a;color:#fff;text-align:center;padding:20px}
+input,select,button{padding:10px;margin:10px;border-radius:10px;border:none}
+button{background:#22c55e;color:#000;font-weight:bold;cursor:pointer}
+.headshot{background:#ef4444;color:#fff}
+.clutch{background:#facc15;color:#000}
+.ai{background:#38bdf8;color:#000}
+.box{background:#1e293b;padding:15px;border-radius:15px;margin-top:20px}
+small{opacity:.8}
+</style>
+</head>
+<body>
+<h2>🔥 AI Sensi Generator (FULL AUTO SYSTEM)</h2><input type="text" id="model" placeholder="Enter your mobile model"><br> <select id="ram">
+
+<option value="low">2-4 GB RAM</option>
+<option value="mid">6-8 GB RAM</option>
+<option value="high">8+ GB RAM</option>
+</select><br><button onclick="generate()">Normal</button> <button class="headshot" onclick="headshotMode()">🎯 Headshot</button> <button class="clutch" onclick="clutchMode()">💀 1v4</button> <button class="ai" onclick="autoAI()">🤖 Auto AI Fix</button>
+
+<div class="box" id="result"></div><script>
+function cap(v){return Math.max(0, Math.min(200, Math.round(v)));}
+
+// BASE
+function baseSensi200(ram){
+if(ram==="low"){
+  return {g:170,rd:165,x2:155,x4:140,sn:120,fl:150,dpi:500,btn:50,mode:"Default"};
+}else if(ram==="mid"){
+  return {g:160,rd:155,x2:145,x4:130,sn:110,fl:140,dpi:470,btn:48,mode:"Default"};
+}else{
+  return {g:150,rd:145,x2:135,x4:120,sn:100,fl:130,dpi:440,btn:46,mode:"High"};
+}
+}
+
+// PERFORMANCE TRACK
+let performance = {
+  overAim: false,
+  bodyHit: false,
+  recoilHigh: false
+};
+
+// STABLE FIX
+function stabilize(s){
+s.g -= 8;
+s.rd -= 10;
+s.x2 -= 6;
+return s;
+}
+
+// AUTO FIX ENGINE
+function autoFix(s){
+if(performance.overAim){
+  s.g -= 5;
+  s.rd -= 5;
+}
+if(performance.bodyHit){
+  s.g += 3;
+  s.rd += 4;
+}
+if(performance.recoilHigh){
+  s.x4 -= 5;
+  s.x2 -= 3;
+}
+return s;
+}
+
+// AUTO HEADSHOT BOOST
+function autoHeadshot(s){
+s.g += 2;
+s.rd += 3;
+s.x2 += 2;
+return s;
+}
+
+// MODES
+function generate(){
+let ram=document.getElementById("ram").value;
+let s=baseSensi200(ram);
+s=stabilize(s);
+s=autoHeadshot(s);
+s=finalize(s);
+showResult(s, "Normal Auto Mode");
+}
+
+function headshotMode(){
+let ram=document.getElementById("ram").value;
+let s=baseSensi200(ram);
+s=stabilize(s);
+s=autoHeadshot(s);
+s.g += 4; s.rd += 6;
+s=finalize(s);
+showResult(s, "🎯 Headshot AI Mode");
+}
+
+function clutchMode(){
+let ram=document.getElementById("ram").value;
+let s=baseSensi200(ram);
+s=stabilize(s);
+s=autoHeadshot(s);
+s.g += 6; s.rd += 8; s.x2 += 6;
+s.dpi += 30;
+s=finalize(s);
+showResult(s, "💀 1v4 Clutch AI Mode");
+}
+
+// AUTO AI BUTTON
+function autoAI(){
+let ram=document.getElementById("ram").value;
+let s=baseSensi200(ram);
+s=stabilize(s);
+s=autoFix(s);
+s=autoHeadshot(s);
+s=finalize(s);
+showResult(s, "🤖 FULL AUTO AI ADAPT MODE");
+}
+
+function finalize(s){
+s.g=cap(s.g); s.rd=cap(s.rd); s.x2=cap(s.x2); s.x4=cap(s.x4); s.sn=cap(s.sn); s.fl=cap(s.fl);
+s.btn = Math.max(45, Math.min(58, s.btn));
+s.dpi = Math.max(420, Math.min(560, s.dpi));
+return s;
+}
+
+function showResult(s, title){
+let output=`
+<h3>${title}</h3>
+General: ${s.g}<br>
+Red Dot: ${s.rd}<br>
+2x Scope: ${s.x2}<br>
+4x Scope: ${s.x4}<br>
+Sniper: ${s.sn}<br>
+Free Look: ${s.fl}<br><br>
+
+⚡ DPI: ${s.dpi}<br>
+🔥 Fire Button: ${s.btn}<br>
+🎮 Mode: ${s.mode}<br><br>
+
+<small>
+🤖 Auto System Active<br>
+- Over aim → sensi reduce<br>
+- Body hit → sensi increase<br>
+- Recoil high → scope control
+</small>
+`;
+
+document.getElementById("result").innerHTML=output;
+}
+</script></body>
+</html>
